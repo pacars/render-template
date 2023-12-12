@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - master
+    # Execute the action on closed (merged) PR.
+    types:
+      [closed]
 permissions:
   contents: write
 
