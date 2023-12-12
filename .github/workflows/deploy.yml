@@ -42,7 +42,7 @@ jobs:
           github_token: ${{ secrets.DEPLOY_TOKEN }}
           source_repo_path: pacars/render-template
           upstream_branch: master
-          pr_labels: sync-template
+          pr_labels: "enhancement"
 
       - name: Deploy using GITHUB_TOKEN
         if: ${{ env.DEPLOY_TOKEN == '' }}
