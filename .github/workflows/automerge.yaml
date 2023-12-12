@@ -19,6 +19,7 @@ jobs:
       GITHUB_TOKEN: "${{ secrets.DEPLOY_TOKEN }}"
       MERGE_FORKS: "false"
       MERGE_LABELS: "enhancement"
+      MERGE_DELETE_BRANCH: "true"
     steps:
       - id: automerge
         if: ${{ env.DEPLOY_TOKEN != '' }}
