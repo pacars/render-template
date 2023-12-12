@@ -24,6 +24,10 @@ jobs:
             echo "DEPLOY_TOKEN does not exist, using GITHUB_TOKEN"
             #export DEPLOY_TOKEN="${{ secrets.GITHUB_TOKEN }}"
           fi
+      - name: Create .nojekyll file
+        run: |
+          touch ./public/.nojekyll
+
       - name: Deploy using GITHUB_TOKEN
         env: 
             DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
