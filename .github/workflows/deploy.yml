@@ -12,18 +12,28 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+      - name: Assign correct token to ENV
+        env: 
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+        run: |
+          if [ -n "$DEPLOY_TOKEN" ]; then
+            echo "DEPLOY_TOKEN exists"
+          else
+            echo "DEPLOY_TOKEN does not exist, using GITHUB_TOKEN"
+            export DEPLOY_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+          fi
+#      - name: Deploy using GITHUB_TOKEN
+#        env: 
+#            DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+#        if: ${{ env.DEPLOY_TOKEN == '' }}
+#        uses: peaceiris/actions-gh-pages@v3
+#        with:
+#          github_token: ${{ secrets.DEPLOY_TOKEN }}
+#          #personal_token: ${{ secrets.PERSONAL_TOKEN }}
+#          publish_dir: ./public
+
       - name: Deploy using DEPLOY_TOKEN
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.DEPLOY_TOKEN }}
-          #personal_token: ${{ secrets.PERSONAL_TOKEN }}
           publish_dir: ./public
-        if: secrets.DEPLOY_TOKEN
-
-      - name: Deploy using GITHUB_TOKEN
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-        if: secrets.GITHUB_TOKEN && !secrets.DEPLOY_TOKEN
