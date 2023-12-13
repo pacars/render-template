@@ -33,9 +33,9 @@ jobs:
             echo "DEPLOY_TOKEN does not exist, using GITHUB_TOKEN"
             #export DEPLOY_TOKEN="${{ secrets.GITHUB_TOKEN }}"
           fi
-      - name: Create .nojekyll file
-        run: |
-          touch ./public/.nojekyll
+      #- name: Create .nojekyll file
+      #  run: |
+      #    touch ./public/.nojekyll
       - name: build
         run: ./scripts/build.sh "$ORG_NAME"
       - name: actions-template-sync

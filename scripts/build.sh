@@ -1,6 +1,7 @@
 #!/bin/bash
 
 mkdir -p public
+touch ./public/.nojekyll
 rsync -av images public/
 rsync -av render public/
 rsync index.html render public/
