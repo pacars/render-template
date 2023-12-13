@@ -44,7 +44,7 @@ jobs:
       #  run: |
       #    touch ./public/.nojekyll
       - name: build
-        run: ./scripts/build.sh "$ORG_NAME" "REPO_NAME"
+        run: ./scripts/build.sh "$ORG_NAME" "$REPO_NAME"
       - name: actions-template-sync
         if: ${{ env.DEPLOY_TOKEN != '' }}
         uses: AndreasAugustin/actions-template-sync@v1.1.3
