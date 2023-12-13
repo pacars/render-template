@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+      ORG_NAME: ${{ github.repository_owner }}
 
     steps:
       - name: Checkout code
