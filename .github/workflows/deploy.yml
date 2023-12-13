@@ -19,7 +19,7 @@ jobs:
     env:
       DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
       ORG_NAME: ${{ github.repository_owner }}
-      REPO_NAME: ${{ github.repository_name }}
+      REPO_NAME: ${{ github.event.repository.name }}
 
     steps:
       - name: Checkout code
