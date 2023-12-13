@@ -4,6 +4,7 @@ mkdir -p public
 touch ./public/.nojekyll
 rsync -av images public/
 rsync -av render public/
+rsync -av site_libs public/
 rsync index.html render public/
 ORGANIZATION=$1
 REPO=$2
