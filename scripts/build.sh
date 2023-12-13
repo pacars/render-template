@@ -22,8 +22,7 @@ for file in ./render/*; do
     filename_no_extension="${filename%.*}"
 
     # Creating the section with the filename and appending to the temporary file
-    # echo "<section id=\"title-slide\" data-background-image=\"/$REPO/render/${filename}/${filename}.png\" data-background-size=\"cover\" class=\"quarto-title-block center\"><h1 class=\"title\" style=\"display:none;\">${filename_no_extension}</h1></section>" >> "$temp_file"
-    echo "<section id=\"title-slide\" data-background-image=\"/$REPO/render/${filename}/${filename}.png\"  data-background-size=\"contain\" class=\"quarto-title-block center\"><h1 class=\"title\" style=\"display:none;\">${filename_no_extension}</h1></section>" >> "$temp_file"
+    echo "<div class=\"quarto-layout-row quarto-layout-valign-top\"><div class=\"quarto-layout-cell quarto-layout-cell-subref\" style=\"flex-basis: 100%; justify-content: center\" ><div id=\"fig-${filename_no_extension}\" class=\"quarto-figure quarto-figure-center anchored\" ><figure class=\"figure\"><p><img src=\"/$REPO/render/${filename}/${filename}.png\" class=\"img-fluid figure-img\" data-ref-parent=\"fig-figure3.1\" /></p><p></p><figcaption class=\"figure-caption\"> ${filename_no_extension} </figcaption><p></p></figure></div></div></div>" >> "$temp_file"
 done
 
 template_file="./public/index.html"
