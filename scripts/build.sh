@@ -20,7 +20,7 @@ sidebar_temp_file=$(mktemp)  # Create a temporary file
 html_safe() {
     local string="$1"
     # Replace characters using sed
-    string=$(echo "$string" | sed -e 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'\''/\&#39;/g')
+    #string=$(echo "$string" | sed -e 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'\''/\&#39;/g')
     echo "$string"
 }
 
