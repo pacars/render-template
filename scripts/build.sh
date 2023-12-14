@@ -63,6 +63,7 @@ for dir in ./render/*; do
         sed -i "s|{{sidebar}}|$sidebarItems|g" "$template_file"
         
         # Loop through files in the directory
+        echo "DIR: $dir"
         for file in "$dir"*; do
             # if [ -f "$file" ]; then
                 ls -lha "$dir"
