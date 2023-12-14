@@ -67,6 +67,7 @@ for dir in ./render/*; do
         for file in "$dir"*; do
             # if [ -f "$file" ]; then
                 ls -lha "$dir"
+                echo "file:$file"
                 filename=$(basename "$file")
                 echo "filename: $filename"
                 filename_no_extension="${filename%.*}"
