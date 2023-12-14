@@ -65,7 +65,9 @@ for dir in ./render/*; do
         # Loop through files in the directory
         for file in "$dir"*; do
             # if [ -f "$file" ]; then
+                ls -lha "$dir"
                 filename=$(basename "$file")
+                echo "filename: $filename"
                 filename_no_extension="${filename%.*}"
                 echo "" > "$temp_file"
                 # Creating the section with the filename and appending to the temporary file
