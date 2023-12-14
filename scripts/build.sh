@@ -64,7 +64,7 @@ for dir in ./render/*; do
         
         # Loop through files in the directory
         echo "DIR: $dir"
-        for file in "$dir"*; do
+        for file in "$dir/"*; do
             # if [ -f "$file" ]; then
                 ls -lha "$dir"
                 echo "file:$file"
