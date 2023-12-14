@@ -50,8 +50,13 @@ for dir in ./render/*; do
 
         sidebarItems=$(cat "$sidebar_temp_file")
         sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
+        sed -i "s/{{organization}}/$ORGANIZATION/g" "./public/index.html"
+
         sed -i "s/{{repo}}/$REPO/g" "$template_file"
+        sed -i "s/{{repo}}/$REPO/g" "./public/index.html"
+
         sed -i "s/{{source}}/$html_safe_dir_name/g" "$template_file"
+        sed -i "s/{{source}}/$html_safe_dir_name/g" "./public/index.html"
         
         wc -l "$sidebar_temp_file"
         cat "$sidebar_temp_file"
