@@ -26,9 +26,7 @@ html_safe() {
 
 for dir in ./render/*; do
     if [ -d "$dir" ]; then
-        # Get the directory name
         dir_name=$(basename "$dir")
-        # Convert non-HTML characters in the directory name to HTML characters
         html_safe_dir_name=$(html_safe "$dir_name")
         html_path="${html_safe_dir_name}.html"
         echo -n "<li class=\"sidebar-item\"><div class=\"sidebar-item-container\"><a href=\"./$html_path\" class=\"sidebar-item-text sidebar-link\" >$dir_name</a ></div></li>" >> "$sidebar_temp_file"
@@ -54,6 +52,8 @@ for dir in ./render/*; do
         sed -i "s/{{repo}}/$REPO/g" "$template_file"
         sed -i "s/{{source}}/$html_safe_dir_name/g" "$template_file"
         sidebarItems=$(cat "$sidebar_temp_file")
+        wc -l "$sidebar_temp_file"
+        echo "$sidebar_temp_file"
         sed -i "s/{{sidebar}}/$sidebarItems/g" "$template_file"
         
         # Loop through files in the directory
