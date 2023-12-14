@@ -64,6 +64,7 @@ for dir in ./render/*; do
         
         # Loop through files in the directory
         echo "DIR: $dir"
+        echo "" > "$temp_file"
         for file in "$dir/"*; do
             # if [ -f "$file" ]; then
                 ls -lha "$dir"
@@ -71,7 +72,7 @@ for dir in ./render/*; do
                 filename=$(basename "$file")
                 echo "filename: $filename"
                 filename_no_extension="${filename%.*}"
-                echo "" > "$temp_file"
+                
                 # Creating the section with the filename and appending to the temporary file
                 echo "<div class=\"quarto-layout-row quarto-layout-valign-top\"><div class=\"quarto-layout-cell quarto-layout-cell-subref\" style=\"flex-basis: 100%; justify-content: center\" ><div id=\"fig-${filename_no_extension}\" class=\"quarto-figure quarto-figure-center anchored\" ><figure class=\"figure\"><p><img src=\"/$REPO/render/${html_safe_dir_name}/${filename}/${filename}.png\" class=\"img-fluid figure-img\" data-ref-parent=\"fig-figure3.1\" /></p><p></p><figcaption class=\"figure-caption\"> ${filename_no_extension} </figcaption><p></p></figure></div></div></div>" >> "$temp_file"
                 sed -i "s/{{section}}/$(sed 's:/:\\/:g' $temp_file | tr -d '\n')/g" "$template_file"
