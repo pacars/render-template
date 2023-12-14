@@ -6,7 +6,7 @@ rsync -av images public/
 rsync -av render public/
 rsync -av site_libs public/
 # rsync index.html public/
-cp index2.html public/
+cp index2.html public/index.html
 ORGANIZATION=$1
 REPO=$2
 
