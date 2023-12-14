@@ -30,9 +30,6 @@ for dir in ./render/*; do
         dir_name=$(basename "$dir")
         # Convert non-HTML characters in the directory name to HTML characters
         html_safe_dir_name=$(html_safe "$dir_name")
-
-        # Create an HTML file with the HTML-safe directory name
-        template_file="./public/${html_safe_dir_name}.html"
         html_path="${html_safe_dir_name}.html"
         echo -n "<li class=\"sidebar-item\"><div class=\"sidebar-item-container\"><a href=\"./$html_path\" class=\"sidebar-item-text sidebar-link\" >$dir_name</a ></div></li>" >> "$sidebar_temp_file"
     fi 
@@ -48,6 +45,7 @@ for dir in ./render/*; do
 
         # Create an HTML file with the HTML-safe directory name
         template_file="./public/${html_safe_dir_name}.html"
+        echo "${template_file}: $dir_name"
         html_path="${html_safe_dir_name}.html"
         cp index.html "$template_file"
 
