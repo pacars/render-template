@@ -43,17 +43,10 @@ for dir in ./render/*; do
 
         # Create an HTML file with the HTML-safe directory name
         template_file="./public/${html_safe_dir_name}.html"
-        echo "${template_file}: $dir_name"
         html_path="${html_safe_dir_name}.html"
         cp index.html "$template_file"
 
-        echo "ORGANIZATION:$ORGANIZATION"
-        echo "REPO:$REPO"
-        echo "template_file:$template_file"
-        echo "html_safe_dir_name:$html_safe_dir_name"
         sidebarItems=$(cat "$sidebar_temp_file")
-        echo "sidebarItems:$sidebarItems"
-
         sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
         sed -i "s/{{repo}}/$REPO/g" "$template_file"
         sed -i "s/{{source}}/$html_safe_dir_name/g" "$template_file"
@@ -63,14 +56,11 @@ for dir in ./render/*; do
         sed -i "s|{{sidebar}}|$sidebarItems|g" "$template_file"
         
         # Loop through files in the directory
-        echo "DIR: $dir"
         echo "" > "$temp_file"
         for file in "$dir/"*; do
             # if [ -f "$file" ]; then
                 ls -lha "$dir"
-                echo "file:$file"
                 filename=$(basename "$file")
-                echo "filename: $filename"
                 filename_no_extension="${filename%.*}"
                 # Creating the section with the filename and appending to the temporary file
                 echo "<div class=\"quarto-layout-row quarto-layout-valign-top\"><div class=\"quarto-layout-cell quarto-layout-cell-subref\" style=\"flex-basis: 100%; justify-content: center\" ><div id=\"fig-${filename_no_extension}\" class=\"quarto-figure quarto-figure-center anchored\" ><figure class=\"figure\"><p><img src=\"/$REPO/render/${html_safe_dir_name}/${filename}/${filename}.png\" class=\"img-fluid figure-img\" data-ref-parent=\"fig-figure3.1\" /></p><p></p><figcaption class=\"figure-caption\"> ${filename_no_extension} </figcaption><p></p></figure></div></div></div>" >> "$temp_file"                
