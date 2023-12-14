@@ -53,13 +53,14 @@ for dir in ./render/*; do
         echo "html_safe_dir_name:$html_safe_dir_name"
         sidebarItems=$(cat "$sidebar_temp_file")
         echo "sidebarItems:$sidebarItems"
+
         sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
         sed -i "s/{{repo}}/$REPO/g" "$template_file"
         sed -i "s/{{source}}/$html_safe_dir_name/g" "$template_file"
         
         wc -l "$sidebar_temp_file"
-        echo "$sidebar_temp_file"
-        sed -i "s/{{sidebar}}/$sidebarItems/g" "$template_file"
+        cat "$sidebar_temp_file"
+        sed -i "s|{{sidebar}}|$sidebarItems|g" "$template_file"
         
         # Loop through files in the directory
         for file in "$dir"*; do
