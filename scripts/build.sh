@@ -10,20 +10,60 @@ ORGANIZATION=$1
 REPO=$2
 
 
-sed -i "s/{{organization}}/$ORGANIZATION/g" "./public/index.html"
-sed -i "s/{{repo}}/$REPO/g" "./public/index.html"
+# sed -i "s/{{organization}}/$ORGANIZATION/g" "./public/index.html"
+# sed -i "s/{{repo}}/$REPO/g" "./public/index.html"
 
 temp_file=$(mktemp)  # Create a temporary file
 
-# Loop through files in the ./render directory
-for file in ./render/*; do
-    # Extracting the filename without the directory path and extension
-    filename=$(basename "$file")
-    filename_no_extension="${filename%.*}"
+# Function to replace non-HTML characters with their HTML equivalents
+html_safe() {
+    local string="$1"
+    # Replace characters using sed
+    string=$(echo "$string" | sed -e 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'\''/\&#39;/g')
+    echo "$string"
+}
 
-    # Creating the section with the filename and appending to the temporary file
-    echo "<div class=\"quarto-layout-row quarto-layout-valign-top\"><div class=\"quarto-layout-cell quarto-layout-cell-subref\" style=\"flex-basis: 100%; justify-content: center\" ><div id=\"fig-${filename_no_extension}\" class=\"quarto-figure quarto-figure-center anchored\" ><figure class=\"figure\"><p><img src=\"/$REPO/render/${filename}/${filename}.png\" class=\"img-fluid figure-img\" data-ref-parent=\"fig-figure3.1\" /></p><p></p><figcaption class=\"figure-caption\"> ${filename_no_extension} </figcaption><p></p></figure></div></div></div>" >> "$temp_file"
+# Loop through files in the ./render directory
+for dir in ./render/*; do
+    if [ -d "$dir" ]; then
+        # Get the directory name
+        dir_name=$(basename "$dir")
+        # Convert non-HTML characters in the directory name to HTML characters
+        html_safe_dir_name=$(html_safe "$dir_name")
+
+        # Create an HTML file with the HTML-safe directory name
+        template_file="./public/${html_safe_dir_name}.html"
+        cp index.html "$template_file"
+
+        sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
+        sed -i "s/{{repo}}/$REPO/g" "$template_file"
+        sed -i "s/{{source}}/$html_safe_dir_name/g" "$template_file"
+        
+        # Loop through files in the directory
+        for file in "$dir"*; do
+            # if [ -f "$file" ]; then
+                filename=$(basename "$file")
+                filename_no_extension="${filename%.*}"
+                echo "" > "$temp_file"
+                # Creating the section with the filename and appending to the temporary file
+                echo "<div class=\"quarto-layout-row quarto-layout-valign-top\"><div class=\"quarto-layout-cell quarto-layout-cell-subref\" style=\"flex-basis: 100%; justify-content: center\" ><div id=\"fig-${filename_no_extension}\" class=\"quarto-figure quarto-figure-center anchored\" ><figure class=\"figure\"><p><img src=\"/$REPO/render/${filename}/${filename}.png\" class=\"img-fluid figure-img\" data-ref-parent=\"fig-figure3.1\" /></p><p></p><figcaption class=\"figure-caption\"> ${filename_no_extension} </figcaption><p></p></figure></div></div></div>" >> "$temp_file"
+                sed -i "s/{{section}}/$(sed 's:/:\\/:g' $temp_file | tr -d '\n')/g" "$template_file"
+            # fi
+        done
+    fi
+    # di if is dir
+    # loop throuch each dir to get
+        # create html file with dirname
+            cp index.html ##dirname html safe
+        # loop though files in dir
+            # for each file do...
+            filename=$(basename "$file")
+            filename_no_extension="${filename%.*}"
+            echo "" > "$temp_file"
+            # Creating the section with the filename and appending to the temporary file
+            echo "<div class=\"quarto-layout-row quarto-layout-valign-top\"><div class=\"quarto-layout-cell quarto-layout-cell-subref\" style=\"flex-basis: 100%; justify-content: center\" ><div id=\"fig-${filename_no_extension}\" class=\"quarto-figure quarto-figure-center anchored\" ><figure class=\"figure\"><p><img src=\"/$REPO/render/${filename}/${filename}.png\" class=\"img-fluid figure-img\" data-ref-parent=\"fig-figure3.1\" /></p><p></p><figcaption class=\"figure-caption\"> ${filename_no_extension} </figcaption><p></p></figure></div></div></div>" >> "$temp_file"
 done
 
-template_file="./public/index.html"
-sed -i "s/{{section}}/$(sed 's:/:\\/:g' $temp_file | tr -d '\n')/g" "$template_file"
+
+# template_file="./public/index.html"
+# sed -i "s/{{section}}/$(sed 's:/:\\/:g' $temp_file | tr -d '\n')/g" "$template_file"
