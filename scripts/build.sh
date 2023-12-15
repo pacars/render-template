@@ -51,7 +51,7 @@ for org_dir in ./render/*; do
 
         ## list sidebar items: project files
         echo "" > "$sidebar_temp_file_2"
-        for project_dir in "$org_dir/*"; do 
+        for project_dir_path in "$org_dir/"*; do 
             if [ -d "$project_dir_path" ]; then
                 project_name=$(basename "$project_dir_path")
                 project_dir=$(html_safe "$project_name")
@@ -71,7 +71,7 @@ for org_dir in ./render/*; do
         echo "$project_dir_path"
         ls -lha "$project_dir_path"
 
-        
+
         for project_dir_path in "$org_dir/"*; do 
             if [ -d "$project_dir_path" ]; then
                 project_name=$(basename "$project_dir_path")
