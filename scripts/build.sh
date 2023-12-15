@@ -106,6 +106,10 @@ for org_dir in ./render/*; do
                 # sed -i "s|{{links}}|$(sed 's:/:\\/:g' $temp_file_for_links | tr -d '\n')|g" "$template_file"
             fi
         done
+        echo ".........."
+        echo ".........."
+        echo ".........."
+        echo ".........."
     fi
 done
 
