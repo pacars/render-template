@@ -70,10 +70,10 @@ for org_dir in ./render/*; do
         echo $sidebarItems_2 
         sidebarItems_2=$(cat "$sidebar_temp_file_2")
         # sed -i "s|{{sidebar}}|$sidebarItems_2|g" "$template_file"
-        # sed -i "s/{{sidebar}}|$(sed 's:/:\\/:g' $sidebar_temp_file_2 | tr -d '\n')/g" "$template_file"
-    #sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
-    #sed -i "s/{{repo}}/$REPO/g" "$template_file"
-        ##sed -i "s/{{source}}/$html_safe_dir_name/g" "$template_file"
+        sed -i "s/{{sidebar}}|$(sed 's:/:\\/:g' $sidebar_temp_file_2 | tr -d '\n')/g" "$template_file"
+        sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
+        sed -i "s/{{repo}}/$REPO/g" "$template_file"
+        #sed -i "s/{{source}}/$html_safe_dir_name/g" "$template_file"
         
         echo "$project_dir_path"
         ls -lha "$project_dir_path"
@@ -90,9 +90,9 @@ for org_dir in ./render/*; do
                 template_file="./public/${org_name}/${project_dir}/index.html"
                 cp index.html "${template_file}"
 
-                #sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
-                #sed -i "s/{{repo}}/$REPO/g" "$template_file"
-                #sed -i "s/{{source}}/$project_name/g" "$template_file"
+                sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
+                sed -i "s/{{repo}}/$REPO/g" "$template_file"
+                sed -i "s/{{source}}/$project_name/g" "$template_file"
                 #sed -i "s|{{sidebar}}|$sidebarItems_2|g" "$template_file"
 
                 # Loop through files in the directory
@@ -110,7 +110,7 @@ for org_dir in ./render/*; do
                     # fi
                 done
                 #sed -i "s/{{section}}/$(sed 's:/:\\/:g' $temp_file | tr -d '\n')/g" "$template_file"
-                #sed -i "s/{{links}}/$(sed 's:/:\\/:g' $temp_file_for_links | tr -d '\n')/g" "$template_file"
+                sed -i "s/{{links}}/$(sed 's:/:\\/:g' $temp_file_for_links | tr -d '\n')/g" "$template_file"
             fi
         done
         echo ".........."
