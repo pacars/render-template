@@ -67,10 +67,8 @@ for org_dir in ./render/*; do
         sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
         sed -i "s/{{repo}}/$REPO/g" "$template_file"
         #sed -i "s/{{source}}/$html_safe_dir_name/g" "$template_file"
-
         
-        
-        for project_dir in "$org_dir/*"; do 
+        for project_dir_path in "$org_dir/*"; do 
             if [ -d "$project_dir_path" ]; then
                 project_name=$(basename "$project_dir_path")
                 project_dir=$(html_safe "$project_name")
@@ -86,7 +84,7 @@ for org_dir in ./render/*; do
                 # Loop through files in the directory
                 echo "" > "$temp_file"
                 echo "" > "$temp_file_for_links"
-                for file in "$project_dir/"*; do
+                for file in "$project_dir_path/"*; do
                     # if [ -f "$file" ]; then
                         ls -lha "$dir"
                         filename=$(basename "$file")
