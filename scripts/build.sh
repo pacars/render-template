@@ -90,7 +90,7 @@ for org_dir in ./render/*; do
                 template_file="./public/${org_name}/${project_dir}/index.html"
                 cp index.html "${template_file}"
 
-                sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
+                sed -i "s/{{organization}}/$ORGANIZATION: $project_name/" "$template_file"
                 sed -i "s/{{repo}}/$REPO/g" "$template_file"
                 sed -i "s/{{source}}/$project_name/g" "$template_file"
                 #sed -i "s|{{sidebar}}|$sidebarItems_2|g" "$template_file"
