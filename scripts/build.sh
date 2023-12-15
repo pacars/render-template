@@ -67,20 +67,12 @@ for org_dir in ./render/*; do
         echo "|||||||||||||||||||||||{{{{{{{{{{{{{{{{||}}}}}}}}}}}}}}}}"
         echo "|||||||||||||||||||||||{{{{{{{{{{{{{{{{||}}}}}}}}}}}}}}}}"
         echo "|||||||||||||||||||||||{{{{{{{{{{{{{{{{||}}}}}}}}}}}}}}}}"
-        # echo $sidebarItems_2 
-        # sidebarItems_2=$(cat "$sidebar_temp_file_2")
+        echo $sidebarItems_2 
+        sidebarItems_2=$(cat "$sidebar_temp_file_2")
         # sed -i "s|{{sidebar}}|$sidebarItems_2|g" "$template_file"
-        # sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
-        # sed -i "s/{{repo}}/$REPO/g" "$template_file"
-        # #sed -i "s/{{source}}/$html_safe_dir_name/g" "$template_file"
-        escaped_sidebar=$(sed 's/[^^]/[&]/g; s/\^/\\^/g' <<< "$sidebarItems_2")
-escaped_organization=$(sed 's/[^^]/[&]/g; s/\^/\\^/g' <<< "$ORGANIZATION")
-escaped_repo=$(sed 's/[^^]/[&]/g; s/\^/\\^/g' <<< "$REPO")
-
-# Perform the replacements using the escaped variables
-sed -i "s|{{sidebar}}|$escaped_sidebar|g" "$template_file"
-sed -i "s/{{organization}}/$escaped_organization/g" "$template_file"
-sed -i "s/{{repo}}/$escaped_repo/g" "$template_file"
+        sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
+        sed -i "s/{{repo}}/$REPO/g" "$template_file"
+        #sed -i "s/{{source}}/$html_safe_dir_name/g" "$template_file"
         
         echo "$project_dir_path"
         ls -lha "$project_dir_path"
