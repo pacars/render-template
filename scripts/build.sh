@@ -71,9 +71,9 @@ for org_dir in ./render/*; do
         sidebarItems_2=$(cat "$sidebar_temp_file_2")
         # sed -i "s|{{sidebar}}|$sidebarItems_2|g" "$template_file"
         # sed -i "s/{{sidebar}}|$(sed 's:/:\\/:g' $sidebar_temp_file_2 | tr -d '\n')/g" "$template_file"
-        sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
-        sed -i "s/{{repo}}/$REPO/g" "$template_file"
-        #sed -i "s/{{source}}/$html_safe_dir_name/g" "$template_file"
+    #sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
+    #sed -i "s/{{repo}}/$REPO/g" "$template_file"
+        ##sed -i "s/{{source}}/$html_safe_dir_name/g" "$template_file"
         
         echo "$project_dir_path"
         ls -lha "$project_dir_path"
