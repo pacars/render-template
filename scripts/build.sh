@@ -70,6 +70,10 @@ for org_dir in ./render/*; do
         
         echo "$project_dir_path"
         ls -lha "$project_dir_path"
+        echo "======================>>"
+        echo "======================>>"
+        echo "======================>>"
+        echo "======================>>"
 
         for project_dir_path in "$org_dir/"*; do 
             if [ -d "$project_dir_path" ]; then
