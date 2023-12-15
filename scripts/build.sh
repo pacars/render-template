@@ -67,6 +67,7 @@ for org_dir in ./render/*; do
         echo "|||||||||||||||||||||||{{{{{{{{{{{{{{{{||}}}}}}}}}}}}}}}}"
         echo "|||||||||||||||||||||||{{{{{{{{{{{{{{{{||}}}}}}}}}}}}}}}}"
         echo "|||||||||||||||||||||||{{{{{{{{{{{{{{{{||}}}}}}}}}}}}}}}}"
+        echo $sidebarItems_2 
         sidebarItems_2=$(cat "$sidebar_temp_file_2")
         sed -i "s|{{sidebar}}|$sidebarItems_2|g" "$template_file"
         sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
