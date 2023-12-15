@@ -71,7 +71,6 @@ for org_dir in ./render/*; do
         echo "$project_dir_path"
         ls -lha "$project_dir_path"
 
-
         for project_dir_path in "$org_dir/"*; do 
             if [ -d "$project_dir_path" ]; then
                 project_name=$(basename "$project_dir_path")
@@ -100,7 +99,7 @@ for org_dir in ./render/*; do
                     # fi
                 done
                 sed -i "s/{{section}}/$(sed 's:/:\\/:g' $temp_file | tr -d '\n')/g" "$template_file"
-                sed -i "s/{{links}}/$(sed 's:/:\\/:g' $temp_file_for_links | tr -d '\n')/g" "$template_file"
+                # sed -i "s|{{links}}|$(sed 's:/:\\/:g' $temp_file_for_links | tr -d '\n')|g" "$template_file"
             fi
         done
     fi
