@@ -6,13 +6,13 @@ html_safe() {
     echo "$string"
 }
 
-mkdir -p public
-cp index2.html public/index.html
+mkdir -p ./public
+cp index2.html ./public/index.html
 
 touch ./public/.nojekyll
-rsync -av images public/
-rsync -av render public/
-rsync -av site_libs public/
+rsync -av images ./public/
+rsync -av render ./public/
+rsync -av site_libs ./public/
 
 ORGANIZATION=$1
 REPO=$2
@@ -46,7 +46,7 @@ for org_dir in ./render/*; do
         org_name_full=$(basename "$org_dir")
         org_name=$(html_safe "$org_name_full")
         template_file="./public/${org_name}/index.html"
-        mkdir -p "/public/${org_name}"
+        mkdir -p "./public/${org_name}"
         cp index2.html "$template_file"
 
         sed -i "s|{{sidebar}}|$sidebarItems|g" "$template_file"
@@ -60,7 +60,7 @@ for org_dir in ./render/*; do
             if [ -d "$project_dir_path" ]; then
                 project_name=$(basename "$project_dir_path")
                 project_dir=$(html_safe "$project_name")
-                mkdir -p "/public/${org_name}/${project_dir}"
+                mkdir -p "./public/${org_name}/${project_dir}"
                 template_file="./public/${org_name}/${project_dir}/index.html"
                 html_path="${org_name}/${project_dir}/index.html"
                 echo -n "<li class=\"sidebar-item\"><div class=\"sidebar-item-container\"><a href=\"/${REPO}/$html_path\" class=\"sidebar-item-text sidebar-link\" >$project_name</a ></div></li>" >> "$sidebar_temp_file_2"
@@ -71,7 +71,7 @@ for org_dir in ./render/*; do
             if [ -d "$project_dir_path" ]; then
                 project_name=$(basename "$project_dir_path")
                 project_dir=$(html_safe "$project_name")
-                mkdir -p "/public/${org_name}/${project_dir}"
+                mkdir -p "./public/${org_name}/${project_dir}"
                 template_file="./public/${org_name}/${project_dir}/index.html"
                 cp index.html "${template_file}"
 
