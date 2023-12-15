@@ -49,11 +49,6 @@ for org_dir in ./render/*; do
         mkdir -p "./public/${org_name}"
         cp index2.html "$template_file"
 
-        sed -i "s|{{sidebar}}|$sidebarItems|g" "$template_file"
-        sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
-        sed -i "s/{{repo}}/$REPO/g" "$template_file"
-        #sed -i "s/{{source}}/$html_safe_dir_name/g" "$template_file"
-
         ## list sidebar items: project files
         echo "" > "$sidebar_temp_file_2"
         for project_dir in "$org_dir/*"; do 
@@ -66,7 +61,15 @@ for org_dir in ./render/*; do
                 echo -n "<li class=\"sidebar-item\"><div class=\"sidebar-item-container\"><a href=\"/${REPO}/$html_path\" class=\"sidebar-item-text sidebar-link\" >$project_name</a ></div></li>" >> "$sidebar_temp_file_2"
             fi 
         done
+
         sidebarItems_2=$(cat "$sidebar_temp_file_2")
+        sed -i "s|{{sidebar}}|$sidebarItems_2|g" "$template_file"
+        sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
+        sed -i "s/{{repo}}/$REPO/g" "$template_file"
+        #sed -i "s/{{source}}/$html_safe_dir_name/g" "$template_file"
+
+        
+        
         for project_dir in "$org_dir/*"; do 
             if [ -d "$project_dir_path" ]; then
                 project_name=$(basename "$project_dir_path")
