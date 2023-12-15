@@ -56,7 +56,7 @@ for org_dir in ./render/*; do
                 project_name=$(basename "$project_dir_path")
                 project_dir=$(html_safe "$project_name")
                 mkdir -p "./public/${org_name}/${project_dir}"
-                template_file="./public/${org_name}/${project_dir}/index.html"
+                #template_file="./public/${org_name}/${project_dir}/index.html"
                 html_path="${org_name}/${project_dir}/index.html"
                 echo -n "<li class=\"sidebar-item\"><div class=\"sidebar-item-container\"><a href=\"/${REPO}/$html_path\" class=\"sidebar-item-text sidebar-link\" >$project_name</a ></div></li>" >> "$sidebar_temp_file_2"
             fi 
