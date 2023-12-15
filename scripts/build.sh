@@ -62,25 +62,13 @@ for org_dir in ./render/*; do
             fi 
         done
 
-        echo "|||||||||||||||||||||||{{{{{{{{{{{{{{{{||}}}}}}}}}}}}}}}}"
-        echo "|||||||||||||||||||||||{{{{{{{{{{{{{{{{||}}}}}}}}}}}}}}}}"
-        echo "|||||||||||||||||||||||{{{{{{{{{{{{{{{{||}}}}}}}}}}}}}}}}"
-        echo "|||||||||||||||||||||||{{{{{{{{{{{{{{{{||}}}}}}}}}}}}}}}}"
-        echo "|||||||||||||||||||||||{{{{{{{{{{{{{{{{||}}}}}}}}}}}}}}}}"
-        echo $sidebarItems_2 
-        sidebarItems_2=$(cat "$sidebar_temp_file_2")
-        # sed -i "s|{{sidebar}}|$sidebarItems_2|g" "$template_file"
-        sed -i "s/{{sidebar}}|$(sed 's:/:\\/:g' $sidebar_temp_file_2 | tr -d '\n')/g" "$template_file"
-        sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
+        # sidebarItems_2=$(cat "$sidebar_temp_file_2")
+                
+        sidebar_content=$(< "$sidebar_temp_file_2")
+        awk -v var="$sidebar_content" '{gsub("{{sidebar}}", var)} 1' "$template_file" > temp_file && mv temp_file "$template_file"
+        sed -i "s/{{organization}}/$org_name/g" "$template_file"
         sed -i "s/{{repo}}/$REPO/g" "$template_file"
-        #sed -i "s/{{source}}/$html_safe_dir_name/g" "$template_file"
         
-        echo "$project_dir_path"
-        ls -lha "$project_dir_path"
-        echo "======================>>"
-        echo "======================>>"
-        echo "======================>>"
-        echo "======================>>"
 
         for project_dir_path in "$org_dir/"*; do 
             if [ -d "$project_dir_path" ]; then
@@ -90,36 +78,27 @@ for org_dir in ./render/*; do
                 template_file="./public/${org_name}/${project_dir}/index.html"
                 cp index.html "${template_file}"
 
-                sed -i "s/{{organization}}/$ORGANIZATION: $project_name/" "$template_file"
+                sed -i "s/{{organization}}/$org_name/" "$template_file"
                 sed -i "s/{{repo}}/$REPO/g" "$template_file"
                 sed -i "s/{{source}}/$project_name/g" "$template_file"
-                #sed -i "s|{{sidebar}}|$sidebarItems_2|g" "$template_file"
+                # sed -i "s|{{sidebar}}|$sidebarItems_2|g" "$template_file"
+                sidebar_content=$(< "$sidebar_temp_file_2")
+                awk -v var="$sidebar_content" '{gsub("{{sidebar}}", var)} 1' "$template_file" > temp_file && mv temp_file "$template_file"
 
                 # Loop through files in the directory
                 echo "" > "$temp_file"
                 echo "" > "$temp_file_for_links"
                 for file in "$project_dir_path/"*; do
                     # if [ -f "$file" ]; then
-                        ls -lha "$dir"
                         filename=$(basename "$file")
                         filename_no_extension="${filename%.*}"
-                        echo "<div class=\"quarto-layout-row quarto-layout-valign-top\"><div class=\"quarto-layout-cell quarto-layout-cell-subref\" style=\"flex-basis: 100%; justify-content: center\" ><div id=\"fig-${filename_no_extension}\" class=\"quarto-figure quarto-figure-center anchored\" ><figure class=\"figure\"><p><img src=\"/$REPO/render/${org_name_full}/${project_name}/${html_safe_dir_name}/${filename}/${filename}.png\" class=\"img-fluid figure-img\" data-ref-parent=\"fig-figure3.1\" /></p><p></p><figcaption class=\"figure-caption\"> ${filename_no_extension} </figcaption><p></p></figure></div></div></div>" >> "$temp_file"   
-                        echo "<li> <a href=\"#sec-introduction\" id=\"toc-sec-introduction\" class=\"nav-link active\" data-scroll-target=\"#fig-${filename_no_extension}\" >${filename_no_extension}</a></li>" >> "$temp_file_for_links"   
-
-                                    
+                        echo "<div class=\"quarto-layout-row quarto-layout-valign-top\"><div class=\"quarto-layout-cell quarto-layout-cell-subref\" style=\"flex-basis: 100%; justify-content: center\" ><div id=\"fig-${filename_no_extension}\" class=\"quarto-figure quarto-figure-center anchored\" ><figure class=\"figure\"><p><img src=\"/$REPO/render/${org_name_full}/${project_name}/${filename}/${filename}.png\" class=\"img-fluid figure-img\" data-ref-parent=\"fig-figure3.1\" /></p><p></p><figcaption class=\"figure-caption\"> ${filename_no_extension} </figcaption><p></p></figure></div></div></div>" >> "$temp_file"   
+                        echo "<li> <a href=\"#fig-${filename_no_extension}\" id=\"toc-${filename_no_extension}\" class=\"nav-link active\" data-scroll-target=\"#fig-${filename_no_extension}\" >${filename_no_extension}</a></li>" >> "$temp_file_for_links"   
                     # fi
                 done
-                #sed -i "s/{{section}}/$(sed 's:/:\\/:g' $temp_file | tr -d '\n')/g" "$template_file"
+                sed -i "s/{{section}}/$(sed 's:/:\\/:g' $temp_file | tr -d '\n')/g" "$template_file"
                 sed -i "s/{{links}}/$(sed 's:/:\\/:g' $temp_file_for_links | tr -d '\n')/g" "$template_file"
             fi
         done
-        echo ".........."
-        echo ".........."
-        echo ".........."
-        echo ".........."
     fi
 done
-
-
-
-## index.html
