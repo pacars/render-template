@@ -93,7 +93,7 @@ for org_dir in ./render/*; do
                 sed -i "s/{{organization}}/$ORGANIZATION/g" "$template_file"
                 sed -i "s/{{repo}}/$REPO/g" "$template_file"
                 sed -i "s/{{source}}/$project_name/g" "$template_file"
-                sed -i "s|{{sidebar}}|$sidebarItems_2|g" "$template_file"
+                #sed -i "s|{{sidebar}}|$sidebarItems_2|g" "$template_file"
 
                 # Loop through files in the directory
                 echo "" > "$temp_file"
@@ -110,7 +110,7 @@ for org_dir in ./render/*; do
                     # fi
                 done
                 sed -i "s/{{section}}/$(sed 's:/:\\/:g' $temp_file | tr -d '\n')/g" "$template_file"
-                # sed -i "s|{{links}}|$(sed 's:/:\\/:g' $temp_file_for_links | tr -d '\n')|g" "$template_file"
+                sed -i "s/{{links}}/$(sed 's:/:\\/:g' $temp_file_for_links | tr -d '\n')/g" "$template_file"
             fi
         done
         echo ".........."
